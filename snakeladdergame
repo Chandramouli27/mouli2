@@ -1,0 +1,416 @@
+//snake ladder game
+#include<iostream>
+#include <cstdlib>
+#include<ctime>
+using namespace std;
+string name1,name2;
+int addtot1,addtot2;
+int add1(int ran,int addtot1,int key1);
+int add2(int ran,int addtot2,int key2);
+int snakeboard(int add,int key,char mat[11][11]);
+int matrix(char mat[11][11],int add);
+int getfunc1(int addtot,int key1,string name)
+{
+    int num,ran,add;
+    cout<<name<<" press any key:";
+    cin>>num;
+    if(num>=1||num<=9)
+    {
+        srand(time(0));
+        ran=(rand()%6)+1;
+        cout<<"Dice:"<<ran<<endl;
+        add=add1(ran,addtot,key1);
+        return add;
+    }
+    else{
+            cout<<"invalid key"<<endl;
+        getfunc1(addtot1,addtot2,name1);
+    }
+}
+int getfunc2(int addtot,int key2,string name)
+{
+    int num;
+    cout<<name<<" press 1 to 9 any key:";
+    cin>>num;
+    int ran,add;
+    if(num>=1||num<=9)
+    {
+         srand(time(0));
+        ran=(rand()%6)+1;
+        cout<<"Dice:"<<ran<<endl;
+        add=add2(ran,addtot,key2);
+        return add;
+    }
+    else{
+            cout<<"invalid key"<<endl;
+        getfunc2(addtot2,addtot1,name2);
+    }
+}
+int add1(int ran,int addtot1,int key1)
+{
+   int add,ret;
+   int o=79;
+   int x=88;
+   char mat[11][11];
+   add=addtot1+ran;
+   if(add==key1)
+   {
+       cout<<"Player 1 and Player 2 same position"<<endl;
+   }
+   if(add<=100)
+   {
+    ret=snakeboard(add,o,mat);
+        snakeboard(key1,x,mat);
+         matrix(mat,add);
+         cout<<"Position="<<ret<<endl;
+    return ret;
+   }
+   else{
+       getfunc2(addtot2,addtot1,name2);
+   }
+}
+int add2(int ran,int addtot2,int key2)
+{
+   int add,ret;
+   int o=79;
+   int x=88;
+   char mat[11][11];
+   add=addtot2+ran;
+   if(add==key2)
+   {
+       cout<<"Player 1 and Player 2 same position"<<endl;
+   }
+   if(add<100)
+   {
+     ret=snakeboard(add,x,mat);
+     snakeboard(key2,o,mat);
+      matrix(mat,add);
+      cout<<"Position="<<ret<<endl;
+     return ret;
+   }
+   else{
+    getfunc1(addtot1,addtot2,name1);
+   }
+}
+int snakeboard(int add,int key,char mat[11][11])
+{
+
+    //laddder
+    mat[10][4]=35;
+    mat[9][8]=35;
+    mat[7][8]=35;
+    mat[6][10]=35;
+    mat[6][2]=35;
+    mat[4][2]=35;
+    mat[3][7]=35;
+    //catch
+    mat[1][2]=60;
+    mat[2][9]=60;
+    mat[3][5]=60;
+    mat[4][6]=60;
+    mat[5][7]=60;
+    mat[6][3]=60;
+    mat[7][1]=60;
+    mat[8][7]=60;
+    int second,temp;
+    temp=add;
+    if(add>=1&&add<=10)
+    {
+      second=temp%10;
+      if(second==0)
+      {
+          second=10;
+      }
+      if(4==second)
+      {
+          cout<<"ladder"<<endl;
+          cout<<"directly go 25th position"<<endl;
+         mat[8][5]=key;
+         return 25;
+      }
+      else
+      {mat[10][second]=key;
+      return add;
+      }
+    }
+    else if(add>=11&&add<=20)
+    {
+      second=temp%10;
+      second=(10-second)+1;
+      if(7==second)
+      {
+          cout<<"snake catch";
+          cout<<"you go 46th position"<<endl;
+         mat[6][6]=key;
+         return 46;
+      }
+      else {
+      mat[9][second]=key;
+      return add;
+      }
+    }
+     else if(add>=21&&add<=30)
+    {
+      second=temp%10;
+      if(second==0)
+      {
+          second=10;
+      }
+       if(7==second)
+      {
+          cout<<"snake catch";
+          cout<<"you go 25th position"<<endl;
+         mat[10][5]=key;
+         return 25;
+      }
+      else{mat[8][second]=key;
+      return add;
+      }
+    }
+    else if(add>=31&&add<=40)
+    {
+      second=temp%10;
+      second=(10-second)+1;
+      if(8==second)
+      {
+          cout<<"ladder"<<endl;
+          cout<<"directly go 49th position"<<endl;
+         mat[6][9]=key;
+         return 49;
+      }
+      else if(1==second)
+      {
+          cout<<"snake catch";
+          cout<<"you go 3rd position"<<endl;
+         mat[10][3]=key;
+         return 3;
+      }
+      else {mat[7][second]=key;
+      return add;
+      }
+    }
+     else if(add>=41&&add<=50)
+    {
+      second=temp%10;
+      if(second==0)
+      {
+          second=10;
+      }
+      if(2==second)
+      {
+          cout<<"ladder"<<endl;
+          cout<<"directly go 63th position"<<endl;
+         mat[4][3]=key;
+         return 63;
+      }
+      else if(3==second)
+      {
+         cout<<"snake catch";
+          cout<<"you go 18th position"<<endl;
+         mat[9][3]=key;
+         return 18;
+      }
+      else {mat[6][second]=key;
+      return add;
+      }
+    }
+    else if(add>=51&&add<=60)
+    {
+      second=temp%10;
+      second=(10-second)+1;
+      if(7==second)
+      {
+          cout<<"snake catch";
+          cout<<"you go 31th position"<<endl;
+         mat[7][10]=key;
+         return 31;
+      }
+      else {mat[5][second]=key;
+      return add;
+      }
+    }
+    else if(add>=61&&add<=70)
+    {
+      second=temp%10;
+      if(second==0)
+      {
+          second=10;
+      }
+      if(2==second)
+      {
+          cout<<"ladder";
+          cout<<"directly go 81th position"<<endl;
+         mat[2][1]=key;
+         return 81;
+      }
+     else if(6==second)
+      {
+          cout<<"snake catch";
+          cout<<"you go 45th position"<<endl;
+         mat[6][5]=key;
+         return 45;
+      }
+      else {mat[4][second]=key;
+      return add;
+      }
+    }
+    else if(add>=71&&add<=80)
+    {
+      second=temp%10;
+      second=(10-second)+1;
+      if(5==second)
+      {
+          cout<<"snake catch";
+          cout<<"you go 58th position"<<endl;
+         mat[5][3]=key;
+         return 58;
+      }
+      else if(7==second)
+      {
+          cout<<"ladder";
+          cout<<"directly go 92th position"<<endl;
+         mat[1][9]=key;
+         return 92;
+      }
+      else {mat[3][second]=key;
+      return add;
+      }
+    }
+    else if(add>=81&&add<=90)
+    {
+      second=temp%10;
+      if(second==0)
+      {
+          second=10;
+      }
+      if(9==second)
+      {
+          cout<<"snake catch";
+          cout<<"you go 53th position"<<endl;
+         mat[5][8]=key;
+         return 53;
+      }
+      else {mat[2][second]=key;
+      return add;
+      }
+    }
+    else if(add>=91&&add<=100)
+    {
+      second=temp%10;
+      second=(10-second)+1;
+      if(2==second)
+      {
+          cout<<"snake catch";
+          cout<<"you go 41th position"<<endl;
+         mat[6][1]=key;
+         return 41;
+      }
+      else {
+      mat[1][second]=key;
+      return add;
+      }
+    }
+}
+int matrix(char mat[11][11],int add)
+{
+  int k,z;
+    k=100,z=81;
+    for(int i=1;i<=10;i++)
+    {
+        cout<<"\t"<<"---------------------"<<endl;;
+        cout<<"\t"<<"|";
+        for(int j=1;j<=10;j++)
+        {
+          if(mat[i][j]==79||mat[i][j]==88||mat[i][j]==35||mat[i][j]==60)
+         {
+             cout<<mat[i][j]<<"|";
+         }
+         else{
+            cout<<" "<<"|";
+         }
+        }
+        /*if(i%2!=0)
+        {
+         for(int j=1;j<=10;j++)
+     {
+         if(mat[i][j]==94||mat[i][j]==42||mat[i][j]==60||mat[i][j]==35||mat[i][j]==111||mat[i][j]==120)
+         {
+             cout<<mat[i][j]<<" |";
+         }
+         else{
+            cout<<k<<"|";
+         }
+         k--;
+     }
+     k=k-10;
+        }
+        else{
+        for(int j=1;j<=10;j++)
+     {
+         if(mat[i][j]==94||mat[i][j]==42||mat[i][j]==60||mat[i][j]==35||mat[i][j]==111||mat[i][j]==120)
+         {
+             cout<<mat[i][j]<<" |";
+         }
+         else{
+            cout<<z<<"|";
+         }
+         z++;
+     }
+      z=z-30;
+        }*/
+     cout<<endl;
+    }
+         cout<<"\t"<<"---------------------"<<endl;
+         if(add==100)
+         {
+             cout<<"your win"<<endl;
+             exit(0);
+         }
+
+}
+int main()
+{
+cout<<"***************************************************************************************************************************************************************************************************************"<<endl;
+cout<<"--------------------------------------------------------------SNAKE LADDER GAME-----------------------------------------------------------------"<<endl;
+cout<<"1).To start the game."<<endl;
+cout<<"Decide who goes first. Each player should roll the dice to see who gets the highest number. "<<endl;
+cout<<"Whoever rolls the highest number gets to take the first turn."<<endl;
+cout<<"After the first player takes a turn, the person sitting to that player’s left will take a turn. Play continues in a circle going left."<<endl;
+cout<<"If two or more people roll the same number, and it is the highest number rolled, each of those people roll the dice again."<<endl;
+cout<<"To take your turn, roll the dice again and read the number that you rolled. Pick up your game piece and move forward that number of spaces. For example, if you roll a two, move your piece to square two."<<endl;
+cout<<"2). Ladders."<<endl;
+cout<<"The ladders on the game board allow you to move upwards and get ahead faster. If you land exactly on a square that shows an image of the bottom of a ladder, then you may move your game piece all the way up to the square at the top of the ladder."<<endl;
+cout<<"If you land at the top of a ladder or somewhere in the middle of a ladder, just stay put. You never move down ladders."<<endl;
+cout<<"3). Snakes."<<endl;
+cout<<"Slide down snakes. Snakes move you back on the board because you must slide down them. If you land exactly at the top of a snake, slide your game piece all the way to the square at the bottom of the snake."<<endl;
+cout<<"If you land on a square that is in the middle or at the bottom of a snake, just stay put. You only slide down if you land on the top square of a snake."<<endl;
+cout<<"4). Rolling a Six "<<endl;
+cout<<"Take an extra turn if you roll a six. If you roll a six, then you get an extra turn. First, move your piece forward six squares and then roll the die again. If you land on any snakes or ladders, follow the instructions above to move up or down and then roll again to take your extra turn. If you keep rolling sixes, you can keep moving."<<endl;
+cout<<"5). To Win the game"<<endl;
+cout<<"Land exactly on the last square to win. The first person to reach the highest square on the board wins, usually square 100. But there's a twist! If you roll too high, your piece bounces off the last square and moves back. You can only win by rolling the exact number needed to land on the last square."<<endl;
+cout<<"For example, if you are on square 99 and roll a four, move your game piece to 100 (one move), then  bounce  back to 99, 98, 97 (two, three, then four moves.) If square 97 is a snake head, slide as usual."<<endl;
+cout<<"Use a faster victory rule. Having to land exactly on the final square makes the game more exciting, since it gives people a chance to catch up, but it can also make the game take too long. Instead, you can let people roll higher than they need to reach 100."<<endl;
+cout<<"# is ladder"<<endl;
+cout<<" if ladder position automatically go to higher position"<<endl;
+cout<<"< is snake"<<endl;
+cout<<"if snake catch automatically lower position"<<endl;
+cout<<"***************************************************************************************************************************************************************************************************************"<<endl;
+
+    int i=0;
+    int addtot1=0;
+    int addtot2=0;
+    int add1,add2;
+    string name1,name2;
+    cout<<"Enter the player 1 name:";
+    cin>>name1;
+    cout<<"Enter the player 2 name:";
+    cin>>name2;
+    while(i!=1)
+    {
+        add1=getfunc1(addtot1,addtot2,name1);
+        addtot1=add1;
+        add2=getfunc2(addtot2,addtot1,name2);
+        addtot2=add2;
+    }
+    return 0;
+}
